@@ -33,3 +33,6 @@ git clone -b classic https://github.com/xiaoqingfengATGH/luci-theme-infinityfree
 
 #替换dns2tcp的默认Makefile
 #wget https://raw.githubusercontent.com/sbwml/openwrt_helloworld/v5/dns2tcp/Makefile -O package/feeds/passwall_packages/dns2tcp/Makefile
+
+#替换sing-box的默认Makefile
+sed -i 's/PKG_USE_MIPS16/PKG_BUILD_FLAGS:=no-mips16\nPKG_USE_MIPS16/' feeds/packages/net/sing-box/Makefile
