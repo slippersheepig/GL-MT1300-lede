@@ -34,3 +34,29 @@ git clone -b classic https://github.com/xiaoqingfengATGH/luci-theme-infinityfree
 #替换dns2tcp的默认Makefile
 #wget https://raw.githubusercontent.com/sbwml/openwrt_helloworld/v5/dns2tcp/Makefile -O package/feeds/passwall_packages/dns2tcp/Makefile
 sed -i '1iPKG_USE_MIPS16:=0' package/luci-app-passwall-packages/sing-box/Makefile
+echo "================================================="
+echo "==> Handling microsocks broken patch"
+echo "================================================="
+
+MICROSOCKS_PATCH_DIR="package/luci-app-passwall-packages/microsocks/patches"
+BROKEN_PATCH="100-Add-SOCKS5-forwarding-rules-support.patch"
+
+if [ -d "$MICROSOCKS_PATCH_DIR" ]; then
+  echo "[INFO] microsocks patch directory exists:"
+  ls -l "$MICROSOCKS_PATCH_DIR"
+
+  if [ -f "$MICROSOCKS_PATCH_DIR/$BROKEN_PATCH" ]; then
+    echo "[INFO] Found broken patch: $BROKEN_PATCH"
+    echo "[INFO] Removing it now..."
+    rm -f "$MICROSOCKS_PATCH_DIR/$BROKEN_PATCH"
+
+    echo "[INFO] After removal, remaining patches:"
+    ls -l "$MICROSOCKS_PATCH_DIR"
+  else
+    echo "[INFO] Broken patch NOT found, nothing to remove."
+  fi
+else
+  echo "[WARN] microsocks patch directory does not exist!"
+fi
+
+echo "================================================="
